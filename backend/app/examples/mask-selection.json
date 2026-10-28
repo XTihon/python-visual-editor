@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 2,
+  "id": "mask-selection",
+  "name": "Булева маска: отбор элементов",
+  "code": "import numpy as np\n\n# Исходный массив\na = np.array([2, 7, 4, 9])\n\n# Маска: True там, где элемент больше 5\nmask = a > 5\n\n# Отбор элементов через маску\nresult = a[mask]\nprint(result)\n",
+  "run": null,
+  "createdAt": "",
+  "updatedAt": ""
+}

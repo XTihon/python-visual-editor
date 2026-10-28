@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 2,
+  "id": "reshape",
+  "name": "reshape: изменение формы",
+  "code": "import numpy as np\n\na = np.arange(12)\n\n# Таблица 3 x 4: элементы раскладываются по строкам\nb = a.reshape(3, 4)\nprint(b.shape)\n\n# -1: NumPy сам подберёт размер\nc = a.reshape(2, -1)\nprint(c.shape)\n\n# Транспонирование\nt = b.T\n",
+  "run": null,
+  "createdAt": "",
+  "updatedAt": ""
+}

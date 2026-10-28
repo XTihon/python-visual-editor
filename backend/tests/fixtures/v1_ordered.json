@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "old-mask",
+  "name": "Старый проект: маска",
+  "exercise": "Отобрать элементы больше 5.",
+  "createdAt": "2026-10-01T10:00:00+00:00",
+  "updatedAt": "2026-10-01T10:05:00+00:00",
+  "cells": [
+    {
+      "id": "c1",
+      "title": "Исходный массив",
+      "code": "import numpy as np\n\na = np.array([2, 7, 4, 9])\n",
+      "expected": "Четыре числа",
+      "reflection": "Получился массив shape (4,)",
+      "stale": null,
+      "position": null,
+      "result": null
+    },
+    {
+      "id": "c2",
+      "title": "Маска",
+      "code": "mask = a > 5\n",
+      "expected": "True там, где больше 5",
+      "reflection": "",
+      "stale": null,
+      "position": null,
+      "result": null
+    },
+    {
+      "id": "c3",
+      "title": "Отбор",
+      "code": "result = a[mask]\nprint(result)\n",
+      "expected": "7 и 9",
+      "reflection": "Маска выбрала индексы 1 и 3",
+      "stale": null,
+      "position": null,
+      "result": null
+    }
+  ]
+}

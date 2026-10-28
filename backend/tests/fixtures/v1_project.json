@@ -1,0 +1,885 @@
+{
+  "schemaVersion": 1,
+  "id": "proj-664dd558a5",
+  "name": "Булева маска: отбор элементов",
+  "exercise": "Есть массив a = [2, 7, 4, 9]. Нужно оставить только элементы больше 5.\n1) Создайте булеву маску a > 5.\n2) Отберите элементы массива с помощью этой маски.\n3) Убедитесь, что сам массив a не изменился.\nПодсказка: во вкладке «Массивы» выберите пару «a + mask», чтобы увидеть, какие элементы отбираются.",
+  "cells": [
+    {
+      "id": "c41fec166",
+      "title": "Исходный массив",
+      "code": "import numpy as np\na = np.array([10, 20, 30, 40])",
+      "expected": "Массив из четырёх целых чисел, shape (4,).",
+      "reflection": "",
+      "stale": "session",
+      "position": null,
+      "result": {
+        "status": "done",
+        "sessionId": "c09f5f87e565",
+        "startedAt": "2026-10-03T19:22:01+00:00",
+        "durationMs": 0,
+        "stdout": "",
+        "stderr": "",
+        "outputTruncated": false,
+        "lastExpression": null,
+        "error": null,
+        "snapshot": {
+          "variables": [
+            {
+              "name": "np",
+              "type": "module",
+              "kind": "module",
+              "truncated": false,
+              "repr": "<module 'numpy' from 'C:\\\\Dev\\\\projects\\\\own\\\\vizual redactor\\\\backend\\\\.venv\\\\Lib\\\\site-packages\\\\numpy\\\\__init__.py'>",
+              "hidden": true,
+              "changed": "same"
+            },
+            {
+              "name": "a",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                4
+              ],
+              "dtype": "int64",
+              "ndim": 1,
+              "size": 4,
+              "dtypeKind": "int",
+              "preview": {
+                "data": [
+                  "10",
+                  "20",
+                  "30",
+                  "40"
+                ],
+                "shownShape": [
+                  4
+                ],
+                "hidden": 0
+              },
+              "repr": "array([10, 20, 30, 40])",
+              "hidden": false,
+              "changed": "changed"
+            },
+            {
+              "name": "mask",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                4
+              ],
+              "dtype": "bool",
+              "ndim": 1,
+              "size": 4,
+              "dtypeKind": "bool",
+              "preview": {
+                "data": [
+                  "False",
+                  "True",
+                  "False",
+                  "True"
+                ],
+                "shownShape": [
+                  4
+                ],
+                "hidden": 0
+              },
+              "repr": "array([False,  True, False,  True])",
+              "hidden": false,
+              "changed": "same"
+            },
+            {
+              "name": "result",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                2
+              ],
+              "dtype": "int64",
+              "ndim": 1,
+              "size": 2,
+              "dtypeKind": "int",
+              "preview": {
+                "data": [
+                  "7",
+                  "9"
+                ],
+                "shownShape": [
+                  2
+                ],
+                "hidden": 0
+              },
+              "repr": "array([7, 9])",
+              "hidden": false,
+              "changed": "same"
+            }
+          ],
+          "total": 4,
+          "truncated": false
+        },
+        "notice": null
+      }
+    },
+    {
+      "id": "c99aa2919",
+      "title": "Отбор через маску",
+      "code": "result = a[mask]\nprint(result)\n",
+      "expected": "Какие значения попадут в result и в каком порядке?",
+      "reflection": "",
+      "stale": "moved",
+      "position": null,
+      "result": {
+        "status": "done",
+        "sessionId": "c09f5f87e565",
+        "startedAt": "2026-10-03T19:22:00+00:00",
+        "durationMs": 0,
+        "stdout": "[7 9]\n",
+        "stderr": "",
+        "outputTruncated": false,
+        "lastExpression": null,
+        "error": null,
+        "snapshot": {
+          "variables": [
+            {
+              "name": "np",
+              "type": "module",
+              "kind": "module",
+              "truncated": false,
+              "repr": "<module 'numpy' from 'C:\\\\Dev\\\\projects\\\\own\\\\vizual redactor\\\\backend\\\\.venv\\\\Lib\\\\site-packages\\\\numpy\\\\__init__.py'>",
+              "hidden": true,
+              "changed": "same"
+            },
+            {
+              "name": "a",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                4
+              ],
+              "dtype": "int64",
+              "ndim": 1,
+              "size": 4,
+              "dtypeKind": "int",
+              "preview": {
+                "data": [
+                  "2",
+                  "7",
+                  "4",
+                  "9"
+                ],
+                "shownShape": [
+                  4
+                ],
+                "hidden": 0
+              },
+              "repr": "array([2, 7, 4, 9])",
+              "hidden": false,
+              "changed": "same"
+            },
+            {
+              "name": "mask",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                4
+              ],
+              "dtype": "bool",
+              "ndim": 1,
+              "size": 4,
+              "dtypeKind": "bool",
+              "preview": {
+                "data": [
+                  "False",
+                  "True",
+                  "False",
+                  "True"
+                ],
+                "shownShape": [
+                  4
+                ],
+                "hidden": 0
+              },
+              "repr": "array([False,  True, False,  True])",
+              "hidden": false,
+              "changed": "same"
+            },
+            {
+              "name": "result",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                2
+              ],
+              "dtype": "int64",
+              "ndim": 1,
+              "size": 2,
+              "dtypeKind": "int",
+              "preview": {
+                "data": [
+                  "7",
+                  "9"
+                ],
+                "shownShape": [
+                  2
+                ],
+                "hidden": 0
+              },
+              "repr": "array([7, 9])",
+              "hidden": false,
+              "changed": "new"
+            }
+          ],
+          "total": 4,
+          "truncated": false
+        },
+        "notice": null
+      }
+    },
+    {
+      "id": "cf23a8aa4",
+      "title": "Маска",
+      "code": "mask = a > 5\n",
+      "expected": "Для каждого элемента: True, если он больше 5. Какие индексы будут True?",
+      "reflection": "",
+      "stale": "session",
+      "position": null,
+      "result": {
+        "status": "done",
+        "sessionId": "c09f5f87e565",
+        "startedAt": "2026-10-03T19:22:00+00:00",
+        "durationMs": 0,
+        "stdout": "",
+        "stderr": "",
+        "outputTruncated": false,
+        "lastExpression": null,
+        "error": null,
+        "snapshot": {
+          "variables": [
+            {
+              "name": "np",
+              "type": "module",
+              "kind": "module",
+              "truncated": false,
+              "repr": "<module 'numpy' from 'C:\\\\Dev\\\\projects\\\\own\\\\vizual redactor\\\\backend\\\\.venv\\\\Lib\\\\site-packages\\\\numpy\\\\__init__.py'>",
+              "hidden": true,
+              "changed": "same"
+            },
+            {
+              "name": "a",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                4
+              ],
+              "dtype": "int64",
+              "ndim": 1,
+              "size": 4,
+              "dtypeKind": "int",
+              "preview": {
+                "data": [
+                  "2",
+                  "7",
+                  "4",
+                  "9"
+                ],
+                "shownShape": [
+                  4
+                ],
+                "hidden": 0
+              },
+              "repr": "array([2, 7, 4, 9])",
+              "hidden": false,
+              "changed": "same"
+            },
+            {
+              "name": "mask",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                4
+              ],
+              "dtype": "bool",
+              "ndim": 1,
+              "size": 4,
+              "dtypeKind": "bool",
+              "preview": {
+                "data": [
+                  "False",
+                  "True",
+                  "False",
+                  "True"
+                ],
+                "shownShape": [
+                  4
+                ],
+                "hidden": 0
+              },
+              "repr": "array([False,  True, False,  True])",
+              "hidden": false,
+              "changed": "new"
+            }
+          ],
+          "total": 3,
+          "truncated": false
+        },
+        "notice": null
+      }
+    },
+    {
+      "id": "cac83ba71bc",
+      "title": "",
+      "code": "import numpy as np\r\nempty = np.array([])\r\nbig = np.zeros((1000, 1000))\r\nw = np.array([1.0, np.nan, np.inf])",
+      "expected": "",
+      "reflection": "",
+      "stale": null,
+      "position": null,
+      "result": {
+        "status": "done",
+        "sessionId": "98e9d1f7c41f",
+        "startedAt": "2026-10-03T19:22:05+00:00",
+        "durationMs": 0,
+        "stdout": "",
+        "stderr": "",
+        "outputTruncated": false,
+        "lastExpression": null,
+        "error": null,
+        "snapshot": {
+          "variables": [
+            {
+              "name": "np",
+              "type": "module",
+              "kind": "module",
+              "truncated": false,
+              "repr": "<module 'numpy' from 'C:\\\\Dev\\\\projects\\\\own\\\\vizual redactor\\\\backend\\\\.venv\\\\Lib\\\\site-packages\\\\numpy\\\\__init__.py'>",
+              "hidden": true,
+              "changed": "new"
+            },
+            {
+              "name": "empty",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                0
+              ],
+              "dtype": "float64",
+              "ndim": 1,
+              "size": 0,
+              "dtypeKind": "float",
+              "preview": null,
+              "repr": "array([], dtype=float64)",
+              "note": "Пустой массив: в нём нет элементов.",
+              "hidden": false,
+              "changed": "new"
+            },
+            {
+              "name": "big",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": true,
+              "shape": [
+                1000,
+                1000
+              ],
+              "dtype": "float64",
+              "ndim": 2,
+              "size": 1000000,
+              "dtypeKind": "float",
+              "preview": {
+                "data": [
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ],
+                  [
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0",
+                    "0.0"
+                  ]
+                ],
+                "shownShape": [
+                  20,
+                  20
+                ],
+                "hidden": 999600
+              },
+              "repr": "array([[0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.],\n       ...,\n       [0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.]], shape=(1000, 1000))",
+              "hidden": false,
+              "changed": "new"
+            },
+            {
+              "name": "w",
+              "type": "ndarray",
+              "kind": "ndarray",
+              "truncated": false,
+              "shape": [
+                3
+              ],
+              "dtype": "float64",
+              "ndim": 1,
+              "size": 3,
+              "dtypeKind": "float",
+              "preview": {
+                "data": [
+                  "1.0",
+                  "nan",
+                  "inf"
+                ],
+                "shownShape": [
+                  3
+                ],
+                "hidden": 0
+              },
+              "repr": "array([ 1., nan, inf])",
+              "hidden": false,
+              "changed": "new"
+            }
+          ],
+          "total": 4,
+          "truncated": false
+        },
+        "notice": null
+      }
+    }
+  ],
+  "createdAt": "2026-10-03T19:22:05+00:00",
+  "updatedAt": "2026-10-03T19:22:05+00:00"
+}

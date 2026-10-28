@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 2,
+  "id": "neuron",
+  "name": "Один нейрон: взвешенная сумма",
+  "code": "import numpy as np\n\n# Входы, веса и смещение\nx = np.array([1.0, 2.0, 3.0])\nw = np.array([0.2, 0.8, -0.5])\nb = 2.0\n\n# Вклад каждого входа\nproducts = x * w\n\n# Взвешенная сумма и выход нейрона\nweighted_sum = products.sum()\noutput = weighted_sum + b\nprint(output)\n",
+  "run": null,
+  "createdAt": "",
+  "updatedAt": ""
+}
