@@ -1,26 +1,25 @@
-# Визуальный редактор
+# Python Visual Editor
 
-Локальное веб-приложение для Windows: вы пишете **обычный Python-файл**, запускаете его настоящим CPython, а справа автоматически видите, какие значения появились и как данные связаны между собой: массивы NumPy с индексами, матрицы, булевы маски, вывод `print()` и стрелки зависимостей. Интерфейс на русском, работает без интернета.
+A local web app for Windows: you write a **plain Python file**, run it with real CPython, and the right-hand panel shows which values appeared and how the data is connected: NumPy arrays with indices, matrices, boolean masks, `print()` output and dependency arrows. The interface is in Russian and works offline.
 
-Задумано для изучения Python, NumPy и простых нейросетей: связать строчку кода с реальным результатом вычисления.
+It is built for learning Python, NumPy and simple neural networks: it ties each line of code to the actual result it computed.
 
-## Быстрый старт (Windows, PowerShell)
+## Quick start (Windows, PowerShell)
 
-Нужны **Python 3.11+** и **Node.js 20+** (проверено на Python 3.14 и Node 24).
+Requires **Python 3.11+** and **Node.js 20+** (tested on Python 3.14 and Node 24).
 
 ```powershell
-cd "C:\Dev\projects\own\vizual redactor"
-powershell -ExecutionPolicy Bypass -File .\setup.ps1   # один раз: окружение, зависимости, сборка (нужен интернет)
-.\start.ps1                                            # каждый раз: запуск и открытие браузера
+powershell -ExecutionPolicy Bypass -File .\setup.ps1   # once: environment, dependencies, build (needs internet)
+.\start.ps1                                            # every time: start and open the browser
 ```
 
-Адрес по умолчанию: <http://127.0.0.1:8742>. Остановить — `Ctrl+C` в окне PowerShell.
-Параметры `start.ps1`: `-Port 8800`, `-NoBrowser`, `-Dev` (Vite на порту 5173).
-После `setup.ps1` интернет не нужен: редактор Monaco и шрифты (системные) идут вместе с приложением.
+Default address: <http://127.0.0.1:8742>. Stop with `Ctrl+C` in the PowerShell window.
+`start.ps1` options: `-Port 8800`, `-NoBrowser`, `-Dev` (Vite on port 5173).
+After `setup.ps1` no internet is needed: the Monaco editor and fonts (system) ship with the app.
 
-## Как это работает
+## How it works
 
-Слева — редактор (номера строк, подсветка Python, отступы) и сворачиваемая консоль. Справа — схема. На экране: название проекта, кнопка **▶ Запустить** (во время работы — **■ Остановить**) и меню **⋯**. Сохранение, открытие, импорт, экспорт, примеры, тема и лимит времени — в меню **⋯**. Горячие клавиши: `Ctrl+Enter` или `F5` — запуск, `Ctrl+S` — сохранить.
+On the left is the editor (line numbers, Python highlighting, indentation) and a collapsible console. On the right is the graph. On screen: the project name, the **▶ Run** button (**■ Stop** while running) and the **⋯** menu. Save, open, import, export, examples, theme and time limit are in the **⋯** menu. Shortcuts: `Ctrl+Enter` or `F5` to run, `Ctrl+S` to save.
 
 ```python
 import numpy as np
@@ -31,83 +30,83 @@ result = a[mask]
 print(result)
 ```
 
-После запуска появятся блоки `a`, `mask`, `result`, `output` и стрелки `a → mask`, `a → result`, `mask → result`, `result → output`. Элементы `a`, выбранные маской (`7` и `9`), выделяются автоматически.
+After running, you get the blocks `a`, `mask`, `result`, `output` and the arrows `a → mask`, `a → result`, `mask → result`, `result → output`. The elements of `a` selected by the mask (`7` and `9`) are highlighted automatically.
 
-**Работа со схемой.** Клик по блоку подсвечивает его строку в коде, сам блок и **непосредственно связанные** с ним блоки и стрелки (остальное слегка приглушается); повторный клик или клик по фону снимает выделение. Схему можно двигать, масштабировать колесом и перетаскивать блоки; кнопка «рамка» внизу справа возвращает общий вид. Мышь и клавиши схемы не влияют на ввод в редакторе.
+**Working with the graph.** Clicking a block highlights its line in the code, the block itself and the blocks and arrows **directly connected** to it (everything else is dimmed); click again or click the background to clear. The graph can be panned, zoomed with the wheel, and blocks can be dragged; the "frame" button at the bottom right resets the view. Mouse and keys in the graph do not affect typing in the editor.
 
-**Раскладка.** Схема по умолчанию идёт слева направо (как в n8n). Если так карточки получаются мельче порога читаемости (текст < ≈11 px), а сверху вниз заметно крупнее, выбирается направление сверху вниз — оно совпадает с порядком чтения кода. Направление выбирается один раз на запуск по размеру области и при изменении размера панели не меняется. Блоки каждого уровня центрируются на общей оси, длинные несвязанные ряды переносятся, а стрелки, пропускающие уровень, обходят блоки. Пока структура схемы не изменилась, повторный запуск сохраняет ваш масштаб, сдвиг и перетащенные блоки; при новой структуре вид подгоняется заново.
+**Layout.** The graph runs left to right by default (like n8n). If that makes cards smaller than the readability threshold (text < ≈11 px) while top to bottom would make them noticeably larger, top to bottom is used instead, which matches the reading order of the code. The direction is chosen once per run from the panel size and does not change when the panel is resized. Blocks on each level are centered on a shared axis, long unconnected rows wrap, and arrows that skip a level route around blocks. While the graph structure stays the same, re-running keeps your zoom, pan and dragged blocks; a new structure re-fits the view.
 
-### Откуда берутся значения и связи
+### Where values and links come from
 
-Программа выполняется **один раз**, обычным Python, **инструкция за инструкцией** на верхнем уровне. После каждой инструкции приложение сравнивает состояние переменных до и после:
+The program runs **once**, as normal Python, **statement by statement** at the top level. After each statement the app compares the variables before and after:
 
-- переменная, которой что-то присвоили, получает новую версию (`a v1`, `a v2`…) — это независимая копия значения на тот момент;
-- переменная, изменённая **на месте** (`a[0] = 99`, `lst.append(3)`, изменение через псевдоним `b = a; b[0] = 1`), тоже получает новую версию с пометкой «изменён на месте»; предыдущие снимки не меняются;
-- стрелка `x → y` рисуется, только если инструкция, создавшая `y`, **буквально читает** имя `x` (разбор AST). Значения из выражений повторно не вычисляются: промежуточные значения вроде `a > 5` внутри `a[a > 5]` в схему не попадают — только то, что программа сохранила в переменные;
-- импортированные модули, функции и классы блоками не показываются.
+- an assigned variable gets a new version (`a v1`, `a v2`…), an independent copy of the value at that moment;
+- a variable changed **in place** (`a[0] = 99`, `lst.append(3)`, a change through an alias `b = a; b[0] = 1`) also gets a new version marked "changed in place"; earlier snapshots stay unchanged;
+- an arrow `x → y` is drawn only if the statement that created `y` **literally reads** the name `x` (AST analysis). Expressions are not re-evaluated: intermediate values like `a > 5` inside `a[a > 5]` do not appear in the graph, only what the program stored in variables;
+- imported modules, functions and classes are not shown as blocks.
 
-### Что не анализируется (честно)
+### What is not analyzed
 
-Для **циклов, `if`, `with`, `try`, `match`, `exec`/`eval`/`globals()`** программа выполняется как обычно и значения показываются, но **связи не рисуются** — блок получает пометку «цикл for: связи не определяются», а внизу схемы — счётчик «Ограничения анализа». Вызов **своей функции** рисует стрелки от аргументов, но блок помечается «связи неполные» (что функция читает внутри, не отслеживается). Вложенные изменения (`d['k'].append(1)`) отдельной версии не создают, если не меняется верхний объект.
+For **loops, `if`, `with`, `try`, `match`, `exec`/`eval`/`globals()`** the program runs normally and values are shown, but **links are not drawn**: the block gets a note "for loop: links not determined", and an "Analysis limits" counter appears at the bottom of the graph. Calling **your own function** draws arrows from its arguments, but the block is marked "links incomplete" (what the function reads inside is not tracked). Nested changes (`d['k'].append(1)`) do not create a separate version unless the top-level object changes.
 
-После изменения кода схема остаётся на экране, но помечается **устаревшей** (затемнена, сверху полоса) до следующего запуска. Код во время набора не выполняется.
+After the code is edited, the graph stays on screen but is marked **stale** (dimmed, with a bar on top) until the next run. Code is not executed while typing.
 
-Лимиты отображения: предпросмотр массива — 100 элементов (1D) или 16×16 (2D); карточка показывает первые 12 элементов или 8×8; массивы 3+ измерений — только форма и тип; в схеме не более 80 значений (остальное — «Схема усечена: не показано N»).
+Display limits: array preview is 100 elements (1D) or 16×16 (2D); a card shows the first 12 elements or 8×8; arrays with 3+ dimensions show only shape and dtype; the graph shows at most 80 values (the rest as "Graph truncated: N not shown").
 
-## Проекты и старые файлы
+## Projects and old files
 
-Проект — один Python-файл (`code`) плюс результат последнего запуска; хранится в `data\projects\*.json`. Проекты старого формата (с ячейками) **открываются как непрерывный код в прежнем порядке** (название ячейки становится комментарием `# Название`). Оригинал сохраняется дважды: копия файла в `data\projects\_originals\<id>.v1.json` и полный исходник внутри нового проекта (поле `original`); учебные заметки из ячеек попадают в раздел «Исходные ячейки» Markdown-отчёта. Старые снимки к схеме не приводятся — код нужно запустить заново.
+A project is one Python file (`code`) plus the result of the last run, stored in `data\projects\*.json`. Projects in the old format (with cells) **open as continuous code in the original order** (the cell title becomes a `# Title` comment). The original is kept twice: a file copy in `data\projects\_originals\<id>.v1.json` and the full source inside the new project (the `original` field); learning notes from cells go into the "Original cells" section of the Markdown report. Old snapshots are not converted to the graph; the code needs to be run again.
 
-Экспорт: **.json** (проект), **.py** (обычный файл с кодом), **.md** (отчёт: код, значения, связи, вывод, ошибки — удобно отдать Claude Code или Codex).
+Export: **.json** (project), **.py** (plain code file), **.md** (report: code, values, links, output, errors; handy to give to Claude Code or Codex).
 
-## Заметка: пробел в редакторе после запуска
+## Note: the space key in the editor after a run
 
-Раньше после первого запуска (когда на экране появлялась схема) в редакторе переставали вводиться пробелы. Причина: React Flow по умолчанию ловит на уровне окна клавишу Space как «включить режим руки» и отменяет её действие по умолчанию, а поле ввода Monaco (`div.native-edit-context` без `contenteditable`) он за поле ввода не считает. Теперь неиспользуемые глобальные клавиши схемы (`panActivationKeyCode`, `selectionKeyCode`, `multiSelectionKeyCode`, `zoomActivationKeyCode`) отключены в `GraphView.tsx`. Если когда-нибудь понадобятся горячие клавиши схемы, их нужно включать с учётом редактора (например, класс `nokey` на контейнере редактора).
+Previously, after the first run (when the graph appeared), spaces stopped working in the editor. The cause: by default React Flow catches the Space key at the window level as "enable hand mode" and cancels its default action, and it does not treat Monaco's input element (`div.native-edit-context` without `contenteditable`) as an input field. The unused global graph keys (`panActivationKeyCode`, `selectionKeyCode`, `multiSelectionKeyCode`, `zoomActivationKeyCode`) are now disabled in `GraphView.tsx`. If graph shortcuts are ever needed, enable them with the editor in mind (for example, the `nokey` class on the editor container).
 
-## Ограничения и безопасность
+## Limits and security
 
-- **Рабочий процесс — не песочница.** Код выполняется отдельным процессом Python, но с правами вашего пользователя Windows: он может читать и удалять ваши файлы, обращаться к сети, запускать программы. Запускайте только свой код. Лимита памяти нет.
-- Каждый запуск — новый процесс с чистой памятью (как запуск файла); следующий процесс готовится заранее.
-- Сервер слушает только `127.0.0.1`; проверяются `Host` и `Origin`: чужие веб-страницы (в т. ч. DNS rebinding) получают 403; изменяющие запросы без допустимого `Origin` тоже.
-- Лимиты: время запуска по умолчанию 30 с (меню ⋯, максимум 300 с), вывод — 100 000 символов, имя проекта — только `[A-Za-z0-9_-]`, файлы проектов не выходят за `data\projects`.
-- При остановке или тайм-ауте процесс завершается целиком; значения, успевшие появиться до этого, остаются на схеме, а ошибка указывает строку, на которой остановились. Накопленный `print()` внутри незавершённой инструкции теряется.
-- Не поддерживаются: `input()` (даёт `EOFError`), графики matplotlib, отладка по шагам.
+- **The worker process is not a sandbox.** Code runs in a separate Python process, but with your Windows user's rights: it can read and delete your files, access the network and start programs. Run only your own code. There is no memory limit.
+- Each run is a new process with clean memory (like running a file); the next process is prepared in advance.
+- The server listens only on `127.0.0.1`; `Host` and `Origin` are checked: other web pages (including DNS rebinding) get 403, and so do state-changing requests without an allowed `Origin`.
+- Limits: run time 30 s by default (⋯ menu, maximum 300 s), output 100,000 characters, project name only `[A-Za-z0-9_-]`, project files cannot leave `data\projects`.
+- On stop or timeout the whole process is terminated; values that appeared before that stay on the graph, and the error points to the line where execution stopped. Buffered `print()` output inside an unfinished statement is lost.
+- Not supported: `input()` (raises `EOFError`), matplotlib plots, step-by-step debugging.
 
-## Структура
+## Structure
 
 ```
-backend/            FastAPI + Uvicorn (127.0.0.1), рабочий процесс Python
-  app/analysis.py     разбор инструкции: что читает и что записывает (источник связей)
-  app/tracer.py       выполнение по инструкциям, версии значений, рёбра, маски
-  app/worker.py       рабочий процесс (протокол, перехват вывода, ошибки со строкой)
-  app/sessions.py     запуск/остановка, тайм-аут, один запуск за раз, заранее готовый процесс
-  app/snapshot.py     безопасное описание значения (усечение, независимые копии)
-  app/migration.py    ячейки → один файл с сохранением оригинала
+backend/            FastAPI + Uvicorn (127.0.0.1), Python worker process
+  app/analysis.py     statement analysis: what it reads and writes (source of links)
+  app/tracer.py       statement-by-statement execution, value versions, edges, masks
+  app/worker.py       worker process (protocol, output capture, errors with line numbers)
+  app/sessions.py     start/stop, timeout, one run at a time, pre-warmed process
+  app/snapshot.py     safe value description (truncation, independent copies)
+  app/migration.py    cells → single file, keeping the original
   app/projects.py, exports.py, security.py, main.py
-  app/examples/       три примера
-  tests/              pytest (настоящий Python, без подмены)
+  app/examples/       three examples
+  tests/              pytest (real Python, no mocks)
 frontend/           React + TypeScript + Vite
-  src/graph.ts        раскладка схемы, выделение маской, связанные узлы (с тестами)
-  src/store.ts        состояние: запуск, остановка, проекты
+  src/graph.ts        graph layout, mask highlighting, connected nodes (with tests)
+  src/store.ts        state: run, stop, projects
   src/components/     CodeEditor (Monaco), GraphView (React Flow), Console, TopBar, Menu, VizPane
-data/               проекты и рабочая папка (создаётся автоматически)
+data/               projects and working folder (created automatically)
 setup.ps1, start.ps1
 ```
 
-## Стек и версии
+## Stack and versions
 
 Python: FastAPI 0.142.2, Uvicorn 0.54.0, Pydantic 2.13.5, NumPy 2.5.3.
-Интерфейс: React 19.3.0, TypeScript 7.0.2, Vite 8.3.2, Monaco Editor 0.57.0, @xyflow/react (React Flow) 12.12.0, Zustand 5.0.15, react-resizable-panels 4.14.2.
-Точные версии закреплены в `backend/requirements*.txt` и `frontend/package-lock.json`; для `dompurify` (зависимость Monaco) через `overrides` закреплена 3.4.16 (исправление уязвимости из `npm audit`).
+UI: React 19.3.0, TypeScript 7.0.2, Vite 8.3.2, Monaco Editor 0.57.0, @xyflow/react (React Flow) 12.12.0, Zustand 5.0.15, react-resizable-panels 4.14.2.
+Exact versions are pinned in `backend/requirements*.txt` and `frontend/package-lock.json`; `dompurify` (a Monaco dependency) is pinned to 3.4.16 via `overrides` (fix for an `npm audit` vulnerability).
 
-## Проверка
+## Tests
 
 ```powershell
-cd backend;  .\.venv\Scripts\python.exe -m pytest      # тесты: разбор, граф значений и связей, запуск/остановка, проекты, миграция, Origin
-cd ..\frontend; npm test                                # тесты: раскладка, выделение маской, устаревание, проект
-cd ..\frontend; npm run build                           # проверка типов и сборка
+cd backend;  .\.venv\Scripts\python.exe -m pytest      # analysis, value/link graph, run/stop, projects, migration, Origin
+cd ..\frontend; npm test                                # layout, mask highlighting, staleness, project
+cd ..\frontend; npm run build                           # type check and build
 ```
 
-## API (для справки)
+## API (reference)
 
-`GET /api/status`, `POST /api/run`, `POST /api/stop`, `GET /api/projects`, `GET|PUT /api/projects/{id}`, `POST /api/projects/import` (любой формат → текущий), `POST /api/export/py|md`, `GET /api/examples[/{id}]`.
+`GET /api/status`, `POST /api/run`, `POST /api/stop`, `GET /api/projects`, `GET|PUT /api/projects/{id}`, `POST /api/projects/import` (any format → current), `POST /api/export/py|md`, `GET /api/examples[/{id}]`.
